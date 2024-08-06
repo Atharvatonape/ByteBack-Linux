@@ -11,6 +11,10 @@ do
     if [ -f "$file" ]; then  # Check if it's a regular file
             filename="${file##*/}"  # Extract filename from path
             filesize=$(stat -f "%z" "$file")  # Get file size in bytes for macOS
+            if [ "$filesize" -gt 1000000 ] ; then
+                echo "Removing $filename because it's larger than 1MB"
+                rm "$file"
+            fi
             echo "$filename $filesize bytes"
     fi
 done

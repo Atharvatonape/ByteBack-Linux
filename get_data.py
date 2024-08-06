@@ -3,54 +3,66 @@ import shutil
 import pprint
 from datetime import datetime
 import timestamp
+from dotenv import load_dotenv 
+import os
 
-PATH = "/Users/A200298519/library/Application Support/Google/Chrome/Profile 4/History"
-TEMP_PATH = "/Users/A200298519/Desktop/MVP/cli/"
+load_dotenv()
 
-LOCAL_STATE = "/Users/A200298519/Library/Application Support/Google/Chrome/Local State"
+PATH = os.getenv("CHROME_HISTORY_PATH")
+TEMP_PATH = os.getenv("TEMP_PATH")
 
-shutil.copy2(PATH, TEMP_PATH)
-shutil.copy2(LOCAL_STATE, TEMP_PATH)
+# PATH = "/Users/A200298519/library/Application Support/Google/Chrome/Profile 4/History"
+# TEMP_PATH = "/Users/A200298519/Desktop/MVP/cli/"
 
+def get_data():
+    shutil.copy2(PATH, TEMP_PATH)
+    conn = sqlite3.connect(TEMP_PATH + "History")
+    cursor = conn.cursor()
+    # display_table_headers(conn, 'downloads')
+    result = get_downloads_today(cursor)
+    data = result
+    conn.close()
+    os.remove(TEMP_PATH + "History")
+    # print(data)
+    return data
 
-conn = sqlite3.connect(TEMP_PATH + "History")
-cursor = conn.cursor()
+def get_downloads_today(cursor):
+    today_date = timestamp.get_today_date()
+    query = f"""
+    SELECT current_path, start_time , total_bytes, site_url, tab_url, mime_type FROM downloads
+    where start_time >= {today_date}
+    ORDER BY id DESC
+    LIMIT 3;
+    """
+    cursor.execute(query)
+    downloads = cursor.fetchall()
+    # print(downloads)
+    return downloads
 
-# Get the schema of the downloads table
-query = """
-PRAGMA table_info(downloads);
-"""
-cursor.execute(query)
-schema_info = cursor.fetchall()
+def display_table_headers(conn, table_name):
+    """
+    Displays the column headers for a specified table in the SQLite database.
 
-today_date = timestamp.get_today_date()
-# Extract the column headers
-headers = [column[1] for column in schema_info]
+    Parameters:
+    - conn: SQLite database connection object.
+    - table_name: Name of the table for which to display headers.
+    """
+    cursor = conn.cursor()
+    try:
+        cursor.execute(f"PRAGMA table_info({table_name});")
+        headers = cursor.fetchall()
+        if headers:
+            print(f"Column headers for the table '{table_name}':")
+            for header in headers:
+                print(header[1])  # Column names are in the second element
+        else:
+            print(f"No headers found. Does the table '{table_name}' exist?")
+    except sqlite3.Error as e:
+        print(f"An error occurred: {e}")
+    finally:
+        cursor.close()
 
-# Define the query to fetch the first row from the downloads table
-today_date = timestamp.get_today_date()
-
-query = f"""
-SELECT target_path, start_time FROM downloads
-where start_time >= {today_date}
-ORDER BY id DESC
-LIMIT 3;
-"""
-
-# Execute the query
-cursor.execute(query)
-
-# Fetch the first row
-first_row = cursor.fetchall()
-
-# Print the column headers and the first row
-print("Column headers of the downloads table:")
-print(headers)
-print("\nFirst row data:")
-print(first_row, "\n")
-
-conn.close()
-
+get_data()
 
 
 

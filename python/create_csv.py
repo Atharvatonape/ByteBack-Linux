@@ -1,6 +1,6 @@
 import get_data as get_data
 import os
-import re
+import sys
 import csv
 import timestamp as timestamp
 from datetime import datetime
@@ -80,4 +80,14 @@ def add_data_to_csv(data_csv, date_today):
 # match_folder()
 check_folder()
 
+def main():
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "check_folder":
+            check_folder()
+        else:
+            print("Unknown command")
+    else:
+        print("No command provided")
 
+if __name__ == "__main__":
+    main()

@@ -1,6 +1,6 @@
 import os
 
-PATH = os.getenv("UNIQUE_TEST_FOLDER", "")
+PATH = "/Users/A200298519/Downloads/Test/"
 
 def file_validate(history_file):
     for file in os.listdir(PATH):

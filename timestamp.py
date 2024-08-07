@@ -42,12 +42,5 @@ def date_to_timestamp(date_str):
 
     return timestamp_in_microseconds
 
-times = 13367403940058272
-today = get_today_date()
-
-if times > today:
-    print("The timestamp is in the future.")
-else:
-    print("The timestamp is in the past.")
-    print("The timestamp is:", timestamp_converter(int(times)))
-    print("Today's date is:", timestamp_converter(today))
+def bytes_to_mb(bytes):
+    return bytes / 1024 / 1024

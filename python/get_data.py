@@ -2,14 +2,13 @@ import sqlite3
 import shutil
 import pprint
 from datetime import datetime
-import timestamp
-from dotenv import load_dotenv 
+import timestamp as timestamp
+
 import os
 
-load_dotenv()
 
-PATH = os.getenv("CHROME_HISTORY_PATH")
-TEMP_PATH = os.getenv("TEMP_PATH")
+PATH = "/Users/A200298519/library/Application Support/Google/Chrome/Profile 4/History"
+TEMP_PATH = "/Users/A200298519/Desktop/MVP/cli/"
 
 # PATH = "/Users/A200298519/library/Application Support/Google/Chrome/Profile 4/History"
 # TEMP_PATH = "/Users/A200298519/Desktop/MVP/cli/"

@@ -1,16 +1,14 @@
-import get_data
-from dotenv import load_dotenv
+import get_data as get_data
 import os
 import re
 import csv
-import timestamp
+import timestamp as timestamp
 from datetime import datetime
-import check_file
+import check_file as check_file
 
-load_dotenv()
 
 # Ensure the pattern ends with a slash for consistent comparison
-PATTERN = os.path.join(os.getenv("UNIQUE_TEST_FOLDER", ""), '')
+PATTERN =  "/Users/A200298519/Downloads/Test/"
 csv_path =  os.path.expanduser('~/Desktop')+ '/Analysis.csv'
 
 last_date_processed = None

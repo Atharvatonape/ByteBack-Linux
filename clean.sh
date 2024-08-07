@@ -12,7 +12,7 @@ which python3
 
 if [ $cronnn = "true" ]; then
     echo "Calling Python script for checking folder"
-    /Users/A200298519/Desktop/MVP/cli/venv/bin/python3 "/Users/A200298519/Desktop/MVP/cli/create_csv.py" "check_folder"
+    python3 "/Users/A200298519/Desktop/MVP/cli/python/create_csv.py"
 fi
 
 for file in "$dir"/*

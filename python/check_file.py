@@ -1,7 +1,5 @@
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
 PATH = os.getenv("UNIQUE_TEST_FOLDER", "")
 
 def file_validate(history_file):

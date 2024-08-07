@@ -1,6 +1,6 @@
 # ByteBack-Linux CLI Tool
 
-`FileLoggerPlus` is an enhanced command-line interface (CLI) tool that manages and logs metadata of downloaded files, including automatic deletion of files after a specified period. This Linux-Python based tool is designed to operate using native libraries, eliminating the need for external dependencies.
+`ByteBack` is an enhanced command-line interface (CLI) tool that automates the logs of downloaded files in a particular folder and also automatic deletion of files after a specified period. This Linux-Python based tool is designed to operate using native libraries, eliminating the need for external dependencies.
 
 ## Features
 

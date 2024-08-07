@@ -23,7 +23,9 @@ def get_data():
     data = result
     conn.close()
     os.remove(TEMP_PATH + "History")
-    # print(data)
+    # for i in data:
+    #     print(i[0])
+    # print(data[0][0])
     return data
 
 def get_downloads_today(cursor):
@@ -32,7 +34,6 @@ def get_downloads_today(cursor):
     SELECT current_path, start_time , total_bytes, site_url, tab_url, mime_type FROM downloads
     where start_time >= {today_date}
     ORDER BY id DESC
-    LIMIT 3;
     """
     cursor.execute(query)
     downloads = cursor.fetchall()
